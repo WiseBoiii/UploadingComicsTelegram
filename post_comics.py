@@ -1,7 +1,6 @@
 import telebot
 from dotenv import load_dotenv
 import os
-import time
 from download_comics import get_comic
 
 
@@ -12,8 +11,7 @@ def main():
     filename = 'comic.png'
     get_comic(filename)
     bot = telebot.TeleBot(bot_token)
-    bot.send_photo(comic_channel_id, photo=open('comic.png', 'rb'), caption='Новая смеяка для вашей ржаки')
-    filename = 'comic.png'
+    bot.send_photo(comic_channel_id, photo=open(filename, 'rb'), caption='Новая смеяка для вашей ржаки')
     try:
         with open(filename, 'rb') as photo:
             bot.send_photo(comic_channel_id, photo=photo, caption='Новая смеяка для вашей ржаки')

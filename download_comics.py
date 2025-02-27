@@ -1,5 +1,4 @@
 import requests
-import os
 
 
 def download_comic_image(comic_image_link, filename):
