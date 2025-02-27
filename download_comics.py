@@ -14,8 +14,8 @@ def get_comic(filename):
     url = 'https://xkcd.com/info.0.json'
     response = requests.get(url)
     response.raise_for_status()
-    all_about_comic = response.json()
-    comic_image_link = all_about_comic['img']
+    about_comic_json = response.json()
+    comic_image_link = about_comic_json['img']
     download_comic_image(comic_image_link, filename)
 
 
