@@ -6,8 +6,8 @@ from download_comics import get_comic
 
 def main():
     load_dotenv()
-    comic_channel_id = os.getenv('CHAT_ID')
-    bot_token = os.getenv('BOT_TOKEN')
+    comic_channel_id = os.environ['CHAT_ID']
+    bot_token = os.environ['BOT_TOKEN']
     filename = 'comic.png'
     get_comic(filename)
     bot = telebot.TeleBot(bot_token)
