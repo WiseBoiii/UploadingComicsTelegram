@@ -40,7 +40,7 @@
 
 **Запуск скрипта:**
   ```bash
-  python main.py
+  python download_comics.py
   python telegran.py
   ```
 
