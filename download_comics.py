@@ -1,23 +1,29 @@
 import requests
+import random
 
 
-def download_comic_image(comic_image_link, filename):
-
-    response = requests.get(comic_image_link)
+def download_comic_image(image_url, filename):
+    response = requests.get(image_url)
     response.raise_for_status()
 
     with open(filename, 'wb') as file:
         file.write(response.content)
 
 
-def get_comic(filename):
-    url = 'https://xkcd.com/info.0.json'
-    response = requests.get(url)
+def get_comic(latest_comic_url, filename):
+    response = requests.get(latest_comic_url)
     response.raise_for_status()
-    about_comic_json = response.json()
-    comic_image_link = about_comic_json['img']
-    download_comic_image(comic_image_link, filename)
+    latest_comic = response.json()
+    max_number = latest_comic['num']
 
+    random_number = random.randint(0, max_number)
+    random_comic_url = f"https://xkcd.com/{random_number}/info.0.json"
+    print(random_comic_url)
+    response = requests.get(random_comic_url)
+    response.raise_for_status()
+    comic = response.json()
 
+    image_url = comic['img']
+    download_comic_image(image_url, filename)
 
-
+    return comic['alt']

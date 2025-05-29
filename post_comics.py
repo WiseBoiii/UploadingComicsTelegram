@@ -1,25 +1,26 @@
+import os
 import telebot
 from dotenv import load_dotenv
-import os
 from download_comics import get_comic
 
 
 def main():
     load_dotenv()
-    comic_channel_id = os.environ['CHAT_ID']
+
+    channel_id = os.environ['CHAT_ID']
     bot_token = os.environ['BOT_TOKEN']
-    filename = 'comic.png'
-    get_comic(filename)
+    image_path = 'comic.png'
+    latest_comic_url = 'https://xkcd.com/info.0.json'
+
+    caption = get_comic(latest_comic_url, image_path)
     bot = telebot.TeleBot(bot_token)
-    bot.send_photo(comic_channel_id, photo=open(filename, 'rb'), caption='Новая смеяка для вашей ржаки')
+
     try:
-        with open(filename, 'rb') as photo:
-            bot.send_photo(comic_channel_id, photo=photo, caption='Новая смеяка для вашей ржаки')
-    except Exception as e:
-        print(f"Ошибка при отправке или удалении файла: {e}")
+        with open(image_path, 'rb') as image_file:
+            bot.send_photo(chat_id=channel_id, photo=image_file, caption=caption)
     finally:
-        os.remove(filename)
-        print(f"Файл {filename} успешно удален")
+        os.remove(image_path)
+        print(f"Файл {image_path} удалён")
 
 
 if __name__ == "__main__":
