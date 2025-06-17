@@ -18,7 +18,6 @@ def get_comic(latest_comic_url, filename):
 
     random_number = random.randint(0, max_number)
     random_comic_url = f"https://xkcd.com/{random_number}/info.0.json"
-    print(random_comic_url)
     response = requests.get(random_comic_url)
     response.raise_for_status()
     comic = response.json()
